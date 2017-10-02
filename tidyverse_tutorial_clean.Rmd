@@ -1,5 +1,5 @@
 ---
-title: "Medium Data in the Tidyverse"
+title: "Analyzing Psychology Data in the Tidyverse"
 author: "Mike Frank"
 date: "6/22/2017"
 output: html_document
@@ -99,10 +99,7 @@ round(mean(unique(iris$Petal.Length)), digits = 2)
 iris$Petal.Length %>% unique %>% mean %>% round(digits = 2)
 
 # indenting makes things even easier to read
-iris$Petal.Length %>% 
-  unique %>% 
-  mean %>% 
-  round(digits = 2)
+
 ```
 
 This can be super helpful for writing strings of functions so that they are readable and distinct. 
@@ -118,9 +115,7 @@ length(unique(iris$Species)) # number of species
 Piped version:
 
 ```{r}
-iris$Species %>% 
-  unique %>%
-  length
+
 ```
 
 ## `ggplot2` and tidy data
@@ -221,11 +216,8 @@ sgf %>%
 **Exercise.** Filter out only the "face" trial in the "Label" condition.
 
 ```{r}
-sgf %>%
-  filter(condition == "Label", 
-         item == "faces")
 
-sgf[sgf$condition == "Label" & sgf$item == "faces", ] # all the columns
+
 ```
 
 There are also times when you want to add or remove *columns*. You might want to remove columns to simplify the dataset. There's not much to simplify here, but if you wanted to do that, the verb is `select`. 
@@ -252,9 +244,6 @@ Perhaps more useful is *adding columns*. You might do this perhaps to compute so
 sgf <- sgf %>%
   mutate(age_group = cut(age, 2:5, include.lowest = TRUE), 
          age_group_halfyear = cut(age, seq(2,5,.5), include.lowest = TRUE))
-
-# sgf$age_group <- cut(sgf$age, 2:5, include.lowest = TRUE)
-# sgf$age_group <- with(sgf, cut(age, 2:5, include.lowest = TRUE))
 
 head(sgf$age_group)
 ```
@@ -328,14 +317,7 @@ ggplot(sgf_means,
 
 ```{r}
 # exercise
-sgf_sub_means <- sgf %>%
-  group_by(age_group, condition, subid) %>%
-  summarise(correct = mean(correct)) 
 
-sgf_grand_means <- sgf_sub_means %>%
-  group_by(age_group, condition) %>%
-  summarise(mean_correct = mean(correct), 
-            sd_correct = sd(correct))
 ```
 
 <!-- ----------------------------------------------------------------------- -->
@@ -393,7 +375,7 @@ sklar
 
 ```{r}
 sklar_tidy <- sklar %>%
-  gather(subid, rt, 8:28)
+  # fill me in ...
 
 sklar_tidy
 ```
@@ -406,8 +388,7 @@ iris
 
 ```{r}
 iris %>%
-  mutate(iris_id = 1:nrow(iris)) %>%
-  gather(measurement, centimeters, Sepal.Length, Petal.Length, Sepal.Width, Petal.Width)
+  # fill me in ...
 ```
 
 
@@ -456,6 +437,7 @@ Ok, let's plot the relationship between sex and productive vocabulary, using `dp
 ggplot(ws, aes(x = age, y = production, col=sex)) + 
   geom_jitter(size = .5, width = .25, height = 0, alpha = .3)
 ```
+
 This is a bit useless, because the variability is so high. So let's summarise!
 
 > **Exercise.** Get means and SDs of productive vocabulary (`production`) by `age` and `sex`. Filter the kids with missing data for `sex` (coded by `NA`).  
@@ -465,10 +447,8 @@ HINT: `is.na(x)` is useful for filtering.
 ```{r}
 # View(ws)
 ws_sex <- ws %>%
-  filter(!is.na(sex)) %>%
-  group_by(age, sex) %>%
-  summarise(production = mean(production),
-            production_sd = sd(production)) 
+  # fill me in ...
+  
 ws_sex
 ```
 
