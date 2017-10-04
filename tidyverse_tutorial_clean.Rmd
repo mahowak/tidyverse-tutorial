@@ -45,8 +45,16 @@ head(iris)
 
 ```{r}
 # fill me in with calls to the iris dataset that all return the same cell (third from the top, Petal Length).
-
+iris[3,3]
+iris$Petal.Length[3]
+iris[3,"Petal.Length"]
+iris[[3,3]]
+iris[[3]][3]
+iris[["Petal.Length"]][3]
+row.names(iris)[3] <- "bob"
+iris["bob","Petal.Length"]
 ```
+
 
 > **Discussion.** Why might some ways of doing this be better than others? 
 
@@ -82,24 +90,30 @@ We're going to call this **applying** the function `mean` to the variable `Petal
 Pipes are a way to write strings of functions more easily. They bring the first argument of the function to the bedginning. So you can write:
 
 ```{r}
-iris$Petal.Length %>% mean
+iris$Petal.Length %>% mean()
 ```
 
 That's not very useful yet, but when you start **nesting** functions, it gets better. 
 
 ```{r}
 mean(unique(iris$Petal.Length))
-iris$Petal.Length %>% unique() %>% mean(na.rm=TRUE)
+iris$Petal.Length %>% unique() %>% mean()
+iris$Petal.Length %>% unique %>% mean
 ```
 
 or 
 
 ```{r}
-round(mean(unique(iris$Petal.Length)), digits = 2)
+round(mean(unique(iris$Petal.Length)), 
+      digits = 2)
+
 iris$Petal.Length %>% unique %>% mean %>% round(digits = 2)
 
 # indenting makes things even easier to read
-
+iris$Petal.Length %>% 
+  unique %>% 
+  mean %>% 
+  round(digits = 2)
 ```
 
 This can be super helpful for writing strings of functions so that they are readable and distinct. 
@@ -115,7 +129,9 @@ length(unique(iris$Species)) # number of species
 Piped version:
 
 ```{r}
-
+iris$Species %>%
+  unique %>%
+  length
 ```
 
 ## `ggplot2` and tidy data
@@ -195,7 +211,20 @@ DT::datatable(sgf)
 
 There are lots of reasons you might want to remove *rows* from your dataset, including getting rid of outliers, selecting subpopulations, etc. `filter` is a verb (function) that takes a data frame as its first argument, and then as its second takes the **condition** you want to filter on. 
 
-So if you wanted to look only at two year olds, you could do this. (Note you can give two conditions, could also do `age > 2 & age < 3`). (equivalent: `filter(sgf, age > 2, age < 3)`)
+So if you wanted to look only at two year olds, you could do this.
+
+```{r}
+sgf %>%
+  filter(age > 2 & age < 3)
+
+# filter(sgf, age > 2 & age < 3)
+
+# sgf %>%
+#   filter(age > 2, age < 3)
+```
+
+
+(Note you can give two conditions, could also do `age > 2 & age < 3`). (equivalent: `filter(sgf, age > 2, age < 3)`)
 
 Note that we're going to be using pipes with functions over data frames here. The way this works is that:
 
@@ -213,10 +242,12 @@ sgf %>%
          age < 3) 
 ```
 
-**Exercise.** Filter out only the "face" trial in the "Label" condition.
+**Exercise.** Create a smaller datast with **only** the "face" trial in the "Label" condition.
 
 ```{r}
-
+sgf %>%
+  filter(item == "faces", 
+         condition == "Label") 
 
 ```
 
@@ -243,10 +274,20 @@ Perhaps more useful is *adding columns*. You might do this perhaps to compute so
 ```{r}
 sgf <- sgf %>%
   mutate(age_group = cut(age, 2:5, include.lowest = TRUE), 
-         age_group_halfyear = cut(age, seq(2,5,.5), include.lowest = TRUE))
+         foo = age * 7)
 
-head(sgf$age_group)
+head(sgf)
 ```
+
+Recoding.
+
+```{r}
+sgf %>%
+  mutate(age_factor = factor(round(age)), 
+         age_factor_bob = age_factor) %>%
+  select(-age_factor)
+```
+
 
 ## Standard psychological descriptives
 
@@ -379,18 +420,6 @@ sklar_tidy <- sklar %>%
 
 sklar_tidy
 ```
-
-Let's also go back and tidy an easier one: `iris`.
-
-```{r}
-iris
-```
-
-```{r}
-iris %>%
-  # fill me in ...
-```
-
 
 
 <!-- ----------------------------------------------------------------------- -->
