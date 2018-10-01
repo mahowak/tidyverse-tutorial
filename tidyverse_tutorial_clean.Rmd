@@ -66,6 +66,8 @@ And if you know that data are formatted this way, then you can do amazing things
 > **Exercise.** Take a look at these data, as downloaded from Amazon Mechanical Turk. They describe an experiment where people had to estimate the price of a dog, a plasma TV, and a sushi dinner (and they were primed with anchors that differed across conditions). It's a replication of a paper by [Janiszewksi & Uy (2008)](http://warrington.ufl.edu/departments/mkt/docs/janiszewski/Anchor.pdf). Examine this dataset with your nextdoor neighbor and sketch out what a tidy version of the dataset would look like (using paper and pencil).
 
 ```{r}
+ju <- read_csv("data/janiszewski_rep_cleaned.csv")
+head(ju)
 ```
 
 ## Functions and Pipes
@@ -101,10 +103,7 @@ round(mean(unique(iris$Petal.Length)),
 iris$Petal.Length %>% unique %>% mean %>% round(digits = 2)
 
 # indenting makes things even easier to read
-iris$Petal.Length %>% 
-  unique %>% 
-  mean %>% 
-  round(digits = 2)
+...
 ```
 
 This can be super helpful for writing strings of functions so that they are readable and distinct. 
@@ -114,14 +113,13 @@ We'll be doing a lot of piping of functions with multiple arguments later, and i
 > **Exercise.** Rewrite these commands using pipes and check that they do the same thing! (Or at least produce the same output). Unpiped version:
 
 ```{r}
+length(unique(iris$Species)) # number of species
 ```
 
 Piped version:
 
 ```{r}
-iris$Species %>%
-  unique %>%
-  length
+
 ```
 
 ## `ggplot2` and tidy data
@@ -327,13 +325,6 @@ ggplot(sgf_means,
   geom_line() + 
   ylim(0,1) +
   ggthemes::theme_few()
-
-# sgf %>%
-#   mutate(age_group) %>%
-#   group_by() %>%
-#   summarise %>%
-#   ggplot()
-
 ```
 
 > **Exercise.** One of the most important analytic workflows for psychological data is to take some function (e.g., the mean) *for each participant* and then look at grand means and variability *across participant means*. This analytic workflow requires grouping, summarising, and then grouping again and summarising again! Use `dplyr` to make the same table as above (`sgf_means`) but with means (and SDs if you want) computed across subject means, not across all data points. (The means will be pretty similar as this is a balanced design but in a case with lots of missing data, they will vary. In contrast, the SD doesn't even really make sense across the binary data before you aggregate across subjects.) 
