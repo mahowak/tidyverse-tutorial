@@ -1,7 +1,7 @@
 ---
 title: "Analyzing Psychology Data in the Tidyverse"
 author: "Mike Frank"
-date: "6/22/2017"
+date: "10/1/2018"
 output: html_document
 ---
 
@@ -45,14 +45,7 @@ head(iris)
 
 ```{r}
 # fill me in with calls to the iris dataset that all return the same cell (third from the top, Petal Length).
-iris[3,3]
-iris$Petal.Length[3]
-iris[3,"Petal.Length"]
-iris[[3,3]]
-iris[[3]][3]
-iris[["Petal.Length"]][3]
-row.names(iris)[3] <- "bob"
-iris["bob","Petal.Length"]
+
 ```
 
 
@@ -73,8 +66,6 @@ And if you know that data are formatted this way, then you can do amazing things
 > **Exercise.** Take a look at these data, as downloaded from Amazon Mechanical Turk. They describe an experiment where people had to estimate the price of a dog, a plasma TV, and a sushi dinner (and they were primed with anchors that differed across conditions). It's a replication of a paper by [Janiszewksi & Uy (2008)](http://warrington.ufl.edu/departments/mkt/docs/janiszewski/Anchor.pdf). Examine this dataset with your nextdoor neighbor and sketch out what a tidy version of the dataset would look like (using paper and pencil).
 
 ```{r}
-ju <- read_csv("data/janiszewski_rep_cleaned.csv")
-head(ju)
 ```
 
 ## Functions and Pipes
@@ -123,7 +114,6 @@ We'll be doing a lot of piping of functions with multiple arguments later, and i
 > **Exercise.** Rewrite these commands using pipes and check that they do the same thing! (Or at least produce the same output). Unpiped version:
 
 ```{r}
-length(unique(iris$Species)) # number of species
 ```
 
 Piped version:
@@ -216,11 +206,6 @@ So if you wanted to look only at two year olds, you could do this.
 ```{r}
 sgf %>%
   filter(age > 2 & age < 3)
-
-# filter(sgf, age > 2 & age < 3)
-
-# sgf %>%
-#   filter(age > 2, age < 3)
 ```
 
 
@@ -245,9 +230,6 @@ sgf %>%
 **Exercise.** Create a smaller datast with **only** the "face" trial in the "Label" condition.
 
 ```{r}
-sgf %>%
-  filter(item == "faces", 
-         condition == "Label") 
 
 ```
 
@@ -404,8 +386,7 @@ head(sgf)
 There are lots of flexible ways to specify these columns - you can enumerate their names like I did. 
 
 ```{r}
-# gather(item, correct, 5:8)
-# gather(item, correct, starts_with("foo"))
+
 ```
 
 > **Exercise.** Take the Sklar data from above, where each column is a separate subject, and `gather` it so that it's a tidy dataset. What challenges come up? 
