@@ -1,7 +1,7 @@
 ---
 title: "Analyzing Psychology Data in the Tidyverse"
 author: "Mike Frank"
-date: "10/1/2018"
+date: "10/1/2019"
 output: html_document
 ---
 
