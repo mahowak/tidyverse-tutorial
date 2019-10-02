@@ -1,0 +1,100 @@
+---
+title: "Tidyverse Examples"
+author: "Psych 251 Staff"
+date: "10/2/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+# Manipulating data with dplyr
+
+Let's use `mtcars`, a built in dataset of cars and their horsepowers, mileage, etc.
+
+```{r}
+mtcars
+```
+
+**Exercise**: Summarise the overall MPG across the entire dataset. 
+
+```{r}
+mtcars %>%
+  summarise(mean = mean(mpg))
+```
+
+**Exercise**: Summarise the overall MPG, broken down by the number of cylinders.
+
+```{r}
+mtcars %>%
+  group_by(cyl) %>%
+  summarise(mean = mean(mpg))
+```
+
+**Exercise**: Add standard deviations to this summary.
+
+```{r}
+mtcars %>%
+  group_by(cyl) %>%
+  summarise(mean = mean(mpg), 
+            sd = sd(mpg))
+
+```
+
+**BONUS**: Use ggplot to make a scatter plot of mpg by horsepower and add a smoothing line. 
+
+```{r}
+ggplot(mtcars, 
+       aes(x = hp, y = mpg)) + 
+  geom_point() + 
+  geom_smooth() 
+```
+
+
+
+# Reshaping with tidyr
+
+## From long to wide and back again
+
+Use data from informative communication experiment. 
+
+http://langcog.stanford.edu/papers/FG-cogpsych2014.pdf
+
+```{r}
+info <- read_csv("https://raw.githubusercontent.com/mcfrank/info_kid/master/data/info_e2_data.csv")
+```
+
+`info` is in tidy format. Make this into wide data. 
+
+```{r}
+info_wide <- info %>%
+  spread(item, correct) 
+```
+
+Now make it back into tidy data. 
+
+```{r}
+info_long <- info_wide %>%
+  gather(item, correct, bear:rocket)
+```
+
+## From wide to long without seeing the tidy version
+
+# From wide to long without seeing the tidy version
+
+These are pre-post data on children's arithemtic scores from an RCT in which they were assigned either to CNTL (control) or MA (mental abacus math intervention). They were tested twice, once in 2015 and once in 2016. 
+
+https://jnc.psychopen.eu/article/view/106
+
+```{r}
+majic <- read_csv("data/majic.csv")
+```
+
+Make these tidy. 
+
+```{r}
+majic %>%
+  gather(year, score, `2015`, `2016`)
+```
+
