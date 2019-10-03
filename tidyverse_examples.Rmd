@@ -11,20 +11,20 @@ library(tidyverse)
 
 # Manipulating data with dplyr
 
-Let's use `mtcars`, a built in dataset of cars and their horsepowers, mileage, etc.
+Let's use `mtcars`, a built in dataset of cars and their miles/gallon (mpg), number of cylinders (cyl), displacement (disp), gross horsepower (hp), etc. 
 
 ```{r}
 mtcars
 ```
 
-**Exercise**: Summarise the overall MPG across the entire dataset. 
+**Exercise**: First, summarise the average miles/gallon (mpg) across the entire dataset. 
 
 ```{r}
 mtcars %>%
   summarise(mean = mean(mpg))
 ```
 
-**Exercise**: Summarise the overall MPG, broken down by the number of cylinders.
+**Exercise**: A car can either have 4, 6, or 8 cylinders (cyl). Summarise the average mpg, broken down by the number of cylinders. Hint: You may want to "group" by cyl in order to do this. 
 
 ```{r}
 mtcars %>%
@@ -32,7 +32,7 @@ mtcars %>%
   summarise(mean = mean(mpg))
 ```
 
-**Exercise**: Add standard deviations to this summary.
+**Exercise**: In addition to the means, add standard deviations to this summary (still grouped by cyl).
 
 ```{r}
 mtcars %>%
@@ -42,7 +42,7 @@ mtcars %>%
 
 ```
 
-**BONUS**: Use ggplot to make a scatter plot of mpg by horsepower and add a smoothing line. 
+**BONUS**: Let's visualize! Use ggplot (included in the tidyverse package) to make a scatter plot of mpg by horsepower. If you are feeling extra fancy, you can add a smoothing line. (Hint: Google "geom_smooth() scatterplot".)
 
 ```{r}
 ggplot(mtcars, 
