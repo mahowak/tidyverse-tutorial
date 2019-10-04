@@ -41,8 +41,8 @@ mtcars %>%
 **BONUS**: Let's visualize! Use ggplot (included in the tidyverse package) to make a scatter plot of mpg by horsepower. If you are feeling extra fancy, you can add a smoothing line. (Hint: Google "geom_smooth() scatterplot".)
 
 ```{r}
-ggplot(mtcars, 
-       aes(x = , y = )) etc...
+# ggplot(mtcars, 
+#        aes(x = , y = )) etc...
 ```
 
 
