@@ -57,41 +57,40 @@ ggplot(mtcars,
 
 ## From long to wide and back again
 
-Use data from informative communication experiment. 
-
-http://langcog.stanford.edu/papers/FG-cogpsych2014.pdf
+We will first use a built-in table in package `tidyr`: table3. We can use `help(table3)` to find its information.
 
 ```{r}
-info <- read_csv("https://raw.githubusercontent.com/mcfrank/info_kid/master/data/info_e2_data.csv")
+table3
+help(table3)
 ```
 
-`info` is in tidy format. Make this into wide data. 
+`table3` is in tidy format. Make this into wide data. 
 
 ```{r}
-info_wide <- info %>%
-  spread(item, correct) 
-
-#The new way, using pivot_wider! 
-info_wide <- info %>%
-  pivot_wider(names_from = item, values_from = correct) 
+table3_wide <- table3 %>%
+  spread(year, rate) 
 ```
 
 Now make it back into tidy data. 
 
 ```{r}
-info_long <- info_wide %>%
-  gather(item, correct, bear:rocket)
+table3_long <- table3_wide %>%
+  gather(year, rate, `1999`:`2000`)
+```
 
-#The new way, using pivot_longer! 
-info_long <- info_wide %>%
-  pivot_longer(cols = bear:rocket, names_to = "item", values_to = "correct") 
+Here are examples of more recently published functions for wide to long or long to wide. These two functions have more straightforward names and argument names, which makes them easier to use.
+
+```{r}
+table3_wide <- table3 %>% 
+  pivot_wider(names_from = year, values_from = rate)
+
+table3_long <- table3_wide %>% 
+  pivot_longer(cols = `1999`:`2000`, names_to = "year", values_to = "rate")
 ```
 
 ## From wide to long without seeing the tidy version
 
-These are pre-post data on children's arithemtic scores from an RCT in which they were assigned either to CNTL (control) or MA (mental abacus math intervention). They were tested twice, once in 2015 and once in 2016. 
-
-https://jnc.psychopen.eu/article/view/106
+These are pre-post data on children's arithmetic scores from a RCT (Randomized Controlled Trial) in which they were assigned either to CNTL (control) or MA (mental abacus math intervention). They were tested twice, once in 2015 and once in 2016. The paper can be found at https://jnc.psychopen.eu/article/view/106.
 
 ```{r}
 majic <- read_csv("data/majic.csv")
@@ -105,6 +104,15 @@ majic_long <- majic %>%
 
 #The new way, using pivot_longer! 
 majic_long <- majic %>%
-  pivot_longer(cols = c("2015", "2016"), names_to = "year", values_to = "score")
+  pivot_longer(cols = c(`2015`, `2016`), names_to = "year", values_to = "score")
 ```
 
+**OPTIONAL**: make these back to wide format.
+
+```{r}
+majic_wide <- majic_long %>% 
+  spread(year, score)
+
+majic_wide <- majic_long %>% 
+  pivot_wider(names_from = year, values_from = score)
+```
