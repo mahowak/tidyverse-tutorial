@@ -41,15 +41,7 @@ And if you know that data are formatted this way, then you can do amazing things
 
 ## Functions and Pipes
 
-Everything you typically want to do in statistical programming uses **functions**. `mean` is a good example. `mean` takes one **argument**, a numeric vector. 
-
-```{r}
-mean(iris$Petal.Length)
-```
-
-We're going to call this **applying** the function `mean` to the variable `Petal.Length`.
-
-Pipes are a way to write strings of functions more easily. They bring the first argument of the function to the bedginning. So you can write:
+Everything you typically want to do in statistical programming uses **functions**. `mean` is a good example. `mean` takes one **argument**, a numeric vector. Pipes are a way to write strings of functions more easily. They bring the first argument of the function to the bedginning. So instead of writing `mean(iris$Petal.length)` you can write:
 
 ```{r}
 iris$Petal.Length %>% mean
@@ -66,30 +58,12 @@ or
 
 ```{r}
 round(mean(unique(iris$Petal.Length)), digits = 2)
-iris$Petal.Length %>% unique %>% mean %>% round(digits = 2)
 
 # indenting makes things even easier to read
-iris$Petal.Length %>% 
-  unique %>% 
-  mean %>% 
-  round(digits = 2)
+iris$Petal.Length %>% unique %>% mean %>% round(digits = 2)
 ```
 
-This can be super helpful for writing strings of functions so that they are readable and distinct. 
-
-We'll be doing a lot of piping of functions with multiple arguments later, and it will really help keep our syntax simple. 
-
-> **Exercise.** Rewrite these commands using pipes and check that they do the same thing! (Or at least produce the same output). Unpiped version:
-
-```{r}
-length(unique(iris$Species)) # number of species
-```
-
-Piped version:
-
-```{r}
-
-```
+This can be super helpful for writing strings of functions so that they are readable and distinct. We'll be doing a lot of piping of functions with multiple arguments later, and it will really help keep our syntax simple. 
 
 <!-- ----------------------------------------------------------------------- -->
 # Tidy Data Analysis
@@ -166,7 +140,7 @@ sgf <- sgf %>%
 head(sgf$age_group)
 ```
 
-## Standard psychological descriptives
+## Standard descriptives using `summarise` and `group_by`
 
 We typically describe datasets at the level of subjects, not trials. We need two verbs to get a summary at the level of subjects: `group_by` and `summarise` (kiwi spelling). Grouping alone doesn't do much.
 
