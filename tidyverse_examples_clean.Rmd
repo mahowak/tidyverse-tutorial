@@ -21,34 +21,28 @@ mtcars
 
 ```{r}
 mtcars %>%
-  summarise(mean = mean(mpg))
+#Your code here
 ```
 
 **Exercise**: A car can either have 4, 6, or 8 cylinders (cyl). Summarise the average mpg, broken down by the number of cylinders. Hint: You may want to "group" by cyl in order to do this. 
 
 ```{r}
 mtcars %>%
-  group_by(cyl) %>%
-  summarise(mean = mean(mpg))
+#Your code here
 ```
 
 **Exercise**: In addition to the means, add standard deviations to this summary (still grouped by cyl).
 
 ```{r}
 mtcars %>%
-  group_by(cyl) %>%
-  summarise(mean = mean(mpg), 
-            sd = sd(mpg))
-
+#Your code here
 ```
 
 **BONUS**: Let's visualize! Use ggplot (included in the tidyverse package) to make a scatter plot of mpg by horsepower. If you are feeling extra fancy, you can add a smoothing line. (Hint: Google "geom_smooth() scatterplot".)
 
 ```{r}
-ggplot(mtcars, 
-       aes(x = hp, y = mpg)) + 
-  geom_point() + 
-  geom_smooth() 
+# ggplot(mtcars, 
+#        aes(x = , y = )) etc...
 ```
 
 
@@ -68,14 +62,14 @@ help(table3)
 
 ```{r}
 table3_wide <- table3 %>%
-  spread(year, rate) 
+#Your code here
 ```
 
 Now make it back into tidy data. 
 
 ```{r}
 table3_long <- table3_wide %>%
-  gather(year, rate, `1999`:`2000`)
+#Your code here
 ```
 
 Here are examples of more recently published functions for wide to long or long to wide. These two functions have more straightforward names and argument names, which makes them easier to use.
@@ -100,19 +94,12 @@ Make these tidy.
 
 ```{r}
 majic_long <- majic %>%
-  gather(year, score, `2015`, `2016`)
-
-#The new way, using pivot_longer! 
-majic_long <- majic %>%
-  pivot_longer(cols = c(`2015`, `2016`), names_to = "year", values_to = "score")
+#Your code here 
 ```
 
 **OPTIONAL**: make these back to wide format.
 
 ```{r}
 majic_wide <- majic_long %>% 
-  spread(year, score)
-
-majic_wide <- majic_long %>% 
-  pivot_wider(names_from = year, values_from = score)
+#Your code here 
 ```
