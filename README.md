@@ -8,6 +8,8 @@ The availability of data on the web has opened up many resources for cognitive s
 
 # Versions
 
-* Standard tutorial
-* Short version of the tutorial (currently most up-to-date)
-* Exercises (for extra practice)
+* Standard tutorial: `tidyverse_tutorial.Rmd`
+* Short version of the tutorial (currently most up-to-date): `tidyverse_tutorial_short.Rmd`
+  * with notes from CDS2019: `tidyverse_tutorial_short_CDS.Rmd`
+* Exercises (for extra practice): `tidyverse_exercises.Rmd`
+
