@@ -89,9 +89,7 @@ Inspect the various variables before you start any analysis. Lots of people reco
 summary(sgf)
 ```
 
-But this output just feels overwhelming and uninformative. 
-
-Or use interactive tools like `View` or `DT::datatable` (which I really like).
+I prefer interactive tools like `View` or `DT::datatable` (which I really like, especially in knitted reports).
 
 ```{r, eval=FALSE}
 View(sgf)
@@ -129,8 +127,7 @@ Next up, *adding columns*. You might do this perhaps to compute some kind of der
 
 ```{r}
 sgf <- sgf %>%
-  mutate(age_group = cut(age, 2:5, include.lowest = TRUE), 
-         age_group_halfyear = cut(age, seq(2,5,.5), include.lowest = TRUE))
+  mutate(age_group = cut(age, 2:5, include.lowest = TRUE))
 
 head(sgf$age_group)
 ```
