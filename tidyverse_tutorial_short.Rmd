@@ -1,6 +1,6 @@
 ---
 title: "Medium Data in the Tidyverse"
-author: "Mike Frank"
+author: "Mike Frank (with adaptations by Kyle Mahowald for UCSB CEILing)"
 date: "11/17/20"
 output: 
   html_document:
@@ -137,7 +137,7 @@ head(sgf$age_group)
 We typically describe datasets at the level of subjects, not trials. We need two verbs to get a summary at the level of subjects: `group_by` and `summarise` (kiwi spelling). Grouping alone doesn't do much.
 
 ```{r}
-sgf %>%
+sgf = sgf %>%
   group_by(age_group) 
 ```
 
