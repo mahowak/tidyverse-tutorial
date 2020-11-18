@@ -157,6 +157,34 @@ What `summarise` does is to *apply a function* to a part of the dataset to creat
 #   }
 # }
 
+d.exp = expand_grid(subj = seq(1, 100),
+                    condition = c("A", "B", "C", "D"),
+                    trial = seq(1, 10000))
+d.exp$y = rnorm(nrow(d.exp))
+
+loops = function(d) {
+  a = NULL
+  for (i in unique(d$subj)) {
+    for (j in unique(d$condition)) {
+      x = mean(d[d$subj == i & d$condition == j, ]$y)
+      a = rbind(a, c(i, j, x))
+    }
+  }
+}
+
+aggloop = function(d) {
+  return(aggregate(d$y, by=list(subj=d$subj, condition=d$condition), FUN=mean))
+}
+
+tidyloop = function(d) {
+  return (group_by(d.exp, subj, condition) %>%
+    summarise(m=mean(y)))
+}
+
+system.time(loops(d.exp))
+system.time(aggloop(d.exp))
+system.time(tidyloop(d.exp))
+
 sgf %>%
   summarise(correct = mean(correct))
 ```
