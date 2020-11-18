@@ -1,14 +1,14 @@
 ---
 title: "Medium Data in the Tidyverse"
 author: "Mike Frank"
-date: "6/22/2017, updated 10/14/2019"
+date: "11/17/20"
 output: 
   html_document:
     toc: true
     toc_float: true
 ---
 
-Starting note: The best reference for this material is Hadley Wickham's [R for data scientists](http://r4ds.had.co.nz/). My contribution here is to translate this reference for psychology.
+Starting note: The best reference for this material is Hadley Wickham's [R for data scientists](http://r4ds.had.co.nz/). Mike Frank's contribution here is to translate this reference for psychology.
 
 If you have tidyverse installed, you can `knit` the tutorial into an HTML document for better readability by pressing the `knit` button at the top.
 
@@ -277,9 +277,6 @@ ggplot(ws, aes(x = age, y = production)) +
 Ok, let's plot the relationship between sex and productive vocabulary, using `dplyr`.
 
 ```{r, eval=FALSE}
-ggplot(ws, aes(x = age, y = production, col=sex)) + 
-  geom_jitter(size = .5, width = .25, height = 0, alpha = .3) + 
-  geom_smooth()
 ```
 
 <!-- ----------------------------------------------------------------------- -->
@@ -300,7 +297,6 @@ Here's a timing demo for `read.csv`, `read_csv`, and `read_feather`.
 ```{r, eval=FALSE}
 system.time(read.csv("data/ws.csv"))
 system.time(read_csv("data/ws.csv"))
-system.time(feather::read_feather("data/ws.feather"))
 ```
 I see about a 2x speedup for `read_csv` (bigger for bigger files) and a 20x speedup for `read_feather`.
 
