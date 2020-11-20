@@ -67,6 +67,8 @@ Reference: [R4DS Chapter 5](http://r4ds.had.co.nz/transform.html)
 
 Let's take a psychological dataset. Here are the raw data from [Stiller, Goodman, & Frank (2015)](http://langcog.stanford.edu/papers_new/SGF-LLD-2015.pdf). Children met a puppet named "Furble." Furble would show them three pictures, e.g. face, face with glasses, face with hat and glasses and would say "my friend has glasses." They then had to choose which face was Furble's friend. (The prediction was that they'd choose *glasses and not a hat*, indicating that they'd made a correct pragmatic inference). In the control condition, Furble just mumbled. 
 
+![Experimental condition](exp.png)
+
 These data are tidy: each row describes a single trial, each column describes some aspect of tha trial, including their id (`subid`), age (`age`), condition (`condition` - "label" is the experimental condition, "No Label" is the control), item (`item` - which thing Furble was trying to find). 
 
 We are going to manipulate these data using "verbs" from `dplyr`. I'll only teach four verbs, the most common in my workflow (but there are many other useful ones):
