@@ -1,0 +1,56 @@
+---
+title: "Simulating Priming"
+output: html_notebook
+---
+
+For planning experiments, it is helpful to simulated data.
+
+Here, I have real data from Corley & Scheepers (2002) on dative priming.
+
+That is, a task where subjects complete a prime sentence like:
+
+- "The bank manager handed the check to the client." [prepositional object]
+- "The bank manager handed the client the check." [double object]
+
+And then fill in a completion like: 
+
+- "The senator handed..."
+
+The prediction is that double object primes will cause more double object constructions.
+
+To plan to replicate this, I created a statistical model to simluate data. Real experimental data has the value "real" in the column "simulation".
+
+The rest of the data frame is data from 30 simulations where, for a given simulation, I simulate a subject who completes a number of simulated items.
+
+"Response" is the dependent variable. The design is 2x2: prime condition (DO vs PO) by boost (if the verb is the same in the prime and target).
+
+We want to know if the simulated data is a good fit to the real data.
+
+
+```{r}
+library(tidyverse)
+d = read_csv("priming_simulated_real.csv")
+head(d)
+```
+
+Separately for each simulation, find the overall proportion of DO responses.
+
+Visualize if the overall proportion of DO responses is similar to the simulation.
+
+
+```{r}
+
+```
+
+
+Now, for each simulation, look at the proportion of DO responses as a function of subject. Compare it to the real data. We want to make sure that subject response variability in our simulations is consistent with in the real data.
+
+```{r}
+```
+
+Compute the priming effect for each simulation (just as the mean of DO responses in the DO prime condition minus the mean of DO responses in the PO condition) and compare it to the real data. Visualize!
+
+```{r}
+```
+
+What else should we look at? Be creative!
